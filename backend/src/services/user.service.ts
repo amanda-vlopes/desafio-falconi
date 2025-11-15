@@ -6,17 +6,44 @@ import { UpdateUserRequest } from "src/helpers/request/user/update-user.request"
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
-export class UserApplication {
+export class UserService {
+    private users: User[] = [
+        {
+            id: '1',
+            firstName: 'João',
+            lastName: 'Silva',
+            email: 'joao@example.com',
+            isActive: true,
+            profileId: '1',
+        },
+        {
+            id: '2',
+            firstName: 'Maria',
+            lastName: 'Santos',
+            email: 'maria@example.com',
+            isActive: true,
+            profileId: '2',
+        },
+        {
+            id: '3',
+            firstName: 'Pedro',
+            lastName: 'Oliveira',
+            email: 'pedro@example.com',
+            isActive: false,
+            profileId: '2',
+        },
+    ];
     public list(): User[] {
-        return users;
+        return this.users;
     }
 
     public listByProfile(profileId: string): User[] {
-        return users.filter((user) => user.profileId === profileId);
+        return this.users.filter((user) => user.profileId === profileId);
     }
 
-    public findById(id: string): User {
-        const user: User | undefined = users.find((user) => user.id === id);
+    public findById(id: string): User {      
+        const user: User | undefined = this.users.find((user: User) => user.id === id);
+
         if (!user) throw new Error('User not found');
         return user;
     }
@@ -30,7 +57,7 @@ export class UserApplication {
             isActive: true,
             profileId: request.profileId,
         };
-        users.push(newUser);
+        this.users.push(newUser);
         return newUser;
     }
     
@@ -59,18 +86,18 @@ export class UserApplication {
 
     public delete(userId: string) {
         const existingUser: User | undefined = this.findUser(userId);
-        users.filter((user) => user.id !== existingUser.id);
+        this.users = this.users.filter((user) => user.id !== existingUser.id);
         return true;
     }
 
     private findUser(id: string): User {
-        const existingUser: User | undefined = users.find((user) => user.id === id);
+        const existingUser: User | undefined = this.users.find((user) => user.id === id);
         if (!existingUser) throw new Error('User not found');
         return existingUser;
     }
 
     private updateUser(id: string, newUserData: User) {
-        const updatedUserIndex: number = users.findIndex((user) => user.id === id);
-        users[updatedUserIndex] = newUserData;
+        const updatedUserIndex: number = this.users.findIndex((user) => user.id === id);
+        this.users[updatedUserIndex] = newUserData;
     }
 }
