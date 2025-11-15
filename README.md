@@ -8,7 +8,7 @@ Demonstrar arquitetura modular simples (Controllers → Services → Dados em me
 ## Stack Essencial
 Node: 18+ (testado com 18.x e 20.x)  
 Backend: NestJS, TypeScript, Express, UUID  
-Frontend: Next.js, React, Axios  
+Frontend: Next.js, React, Axios, Tailwind  
 Infra leve: Sem DB, sem auth, sem testes ainda.
 
 ## Estrutura
