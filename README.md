@@ -90,7 +90,7 @@ curl -X PUT http://localhost:3001/users/1/toggle-active
 ```
 
 ## 📜 Licença / Uso
-Projeto de desafio técnico. Uso livre para avaliação.
+Projeto de desafio técnico feito por Amanda Lopes. Uso livre para avaliação.
 
 ---
 Feito com foco em clareza e simplicidade.
