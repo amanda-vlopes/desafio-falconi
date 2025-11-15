@@ -1,19 +1,19 @@
 import { Controller, Get, HttpCode, HttpStatus } from "@nestjs/common";
-import { ProfileApplication } from "src/application/profile.application";
+import { ProfileService } from "src/services/profile.service";
 
 @Controller('profiles')
 export class ProfileController {
-    constructor(private readonly profileApplication: ProfileApplication) {}
+    constructor(private readonly profileService: ProfileService) {}
 
     @Get()
     @HttpCode(HttpStatus.OK)
     public list() {
-        return this.profileApplication.list();
+        return this.profileService.list();
     }
 
     @Get(':id')
     @HttpCode(HttpStatus.OK)
     public findById(id: string) {
-        return this.profileApplication.findById(id);
+        return this.profileService.findById(id);
     }
 }

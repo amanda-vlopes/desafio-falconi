@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query } from "@nestjs/common";
-import { UserApplication } from "src/application/user.application";
+import { UserService } from "src/services/user.service";
 import type { User } from "src/entities/user.entity";
 import { CreateUserRequest } from "src/helpers/request/user/create-user.request";
 import { UpdateUserRequest } from "src/helpers/request/user/update-user.request";
@@ -7,44 +7,44 @@ import { UpdateUserRequest } from "src/helpers/request/user/update-user.request"
 
 @Controller('users')
 export class UserController {
-    constructor(private readonly userApplication: UserApplication) {}
+    constructor(private readonly userService: UserService) {}
 
     @Get()
     @HttpCode(HttpStatus.OK)
     public list(@Query('profileId') profileId?: string): User[] {
         if (profileId) {
-            return this.userApplication.listByProfile(profileId);
+            return this.userService.listByProfile(profileId);
         }
-        return this.userApplication.list();
+        return this.userService.list();
     }
 
-    @Get(':id')
+    @Get('/:id')
     @HttpCode(HttpStatus.OK)
-    public findById(@Query('id') id: string): User {
-        return this.userApplication.findById(id);
+    public findById(@Param('id') id: string): User {
+        return this.userService.findById(id);
     }
 
     @Post()
     @HttpCode(HttpStatus.CREATED)
     public create(@Body() request: CreateUserRequest): User {
-        return this.userApplication.create(request);
+        return this.userService.create(request);
     }
 
     @Put()
     @HttpCode(HttpStatus.OK)
     public update(@Body() request: UpdateUserRequest): User {
-        return this.userApplication.update(request);
+        return this.userService.update(request);
     }
 
     @Put(':id/toggle-active')
     @HttpCode(HttpStatus.OK)
     public toggleActive(@Param('id') id: string): User {
-        return this.userApplication.toggleActive(id);
+        return this.userService.toggleActive(id);
     }
 
     @Delete(':id')
     @HttpCode(HttpStatus.NO_CONTENT)
     public delete(@Param('id') id: string): void {
-        this.userApplication.delete(id);
+        this.userService.delete(id);
     }
 }

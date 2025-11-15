@@ -3,11 +3,11 @@ import { Profile } from "src/entities/profile.entity";
 import { v4 as uuid4 } from 'uuid';
 
 @Injectable()
-export class ProfileApplication {
+export class ProfileService {
     private profiles: Profile[] = [
-        { id: uuid4(), name: 'Admin' },
-        { id: uuid4(), name: 'User' },
-        { id: uuid4(), name: 'Manager' },
+        { id: '1', name: 'Admin' },
+        { id: '2', name: 'User' },
+        { id: '3', name: 'Manager' },
     ];
 
     public list(): Profile[] {
